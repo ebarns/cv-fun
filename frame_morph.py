@@ -9,16 +9,21 @@ class FrameMorph:
         self.animated_scale = 0.0
 
     def animated_scale_tick(self):
-        self.animated_scale += 2
-        self.animated_scale %= 50.0
+        self.animated_scale += 1
+        self.animated_scale %= 100.0
         # print(self.animated_scale)
+
+    def reset_animation(self):
+        self.animated_scale = 0.0
 
     def morph_pixels_in_area_animated(self, img, x_pos, y_pos, width, height):
         section = img[y_pos: y_pos + height, x_pos:x_pos + width]
         self.animated_scale_tick()
         section = FrameMorph.vertical_wave(section, self.animated_scale)
-        if (x_pos + 50) < len(section):
-            img[y_pos: y_pos + height, x_pos:x_pos + len(section)] = section
+        print(x_pos, len(section))
+        # if x_pos < len(section):
+        print("morph")
+        img[y_pos: y_pos + height, x_pos:x_pos + len(section)] = section
 
     @staticmethod
     def vertical_wave(img, wave_factor=20.0):
